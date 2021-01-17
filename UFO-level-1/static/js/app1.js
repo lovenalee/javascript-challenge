@@ -18,10 +18,15 @@ tableData.forEach((record) => {
 });
 
 // Select the button
-var submit = d3.select("#filter-btn");
+var button = d3.select("#filter-btn");
 
-//Click event of datetime filter
-submit.on("click", function() {
+
+
+// Create event handlers 
+button.on("click", runEnter)
+
+// Complete the event handler function
+function runEnter() {
 
     // Remove existing table
     d3.select("tbody").html("");
@@ -29,15 +34,15 @@ submit.on("click", function() {
     // Prevent the page from refreshing
     d3.event.preventDefault();
 
-    // Get the value property of the input element
+    // Select the input element and get the raw HTML node
     var inputdate = d3.select("#datetime").property("value");
     console.log(inputdate);
 
-    // Filter reports
+    // Filter data
     var filteredData = tableData.filter(info => info.datetime === inputdate);
     console.log(filteredData);
 
-    // Display the filtered dataset
+    // Display filtered dataset
     filteredData.forEach((record) => {
         var row = tbody.append('tr');
 
@@ -47,7 +52,8 @@ submit.on("click", function() {
             cell.text(value);
         });
     });
+};
 
 
-});
+
 
